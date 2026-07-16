@@ -1,3 +1,9 @@
 out_dir
 .vscode
 *.aux
+*.fdb_latexmk
+*.fls
+*.lof
+*.xml
+*.gz
+
