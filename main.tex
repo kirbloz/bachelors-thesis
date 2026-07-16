@@ -1,0 +1,62 @@
+%\pdfminorversion=7
+\documentclass[a4paper,12pt]{report} % Foglio a4, font size 12, solo fronte
+\input{preamble}
+\input{acronyms}
+\begin{document}
+
+% PDF metadata
+\hypersetup{
+  bookmarksopen=true,
+  pdftitle={Trusted Processing Modules: Storia, Evoluzione e Applicazioni},
+  pdfauthor={Wade Giovanni Baisini}}
+
+% Info documento
+\title{Trusted Processing Modules: Storia, Evoluzione e Applicazioni}
+\author{Wade Giovanni Baisini}
+\date{March 2025}
+
+\newgeometry{lmargin=2cm,rmargin=2cm,tmargin=2.5cm,bmargin=2cm} % Bordi pagina come da formato tesi Unibs
+\include{title}
+\restoregeometry
+
+\clearpage
+\thispagestyle{empty} % Rimuove numero di pagina e intestazioni per questa pagina
+
+\vspace*{\fill} % Spinge il testo verticalmente verso il centro-basso della pagina
+
+\begin{flushright}
+  \itshape 
+Ma la verità è che la tecnologia\\
+è molto politica  \- nel modo\\
+in cui viene creata, sviluppata,\\ 
+da chi, per chi e perché\\
+\end{flushright}
+
+\vfill
+\clearpage
+
+\hyphenpenalty=2000
+\textwidth=450pt\oddsidemargin=0pt
+
+\pagenumbering{Roman}
+\tableofcontents
+\cleardoublepage
+\pagenumbering{arabic}
+
+% inserisci i file contenenti le sezioni
+\include{0-introduzione}
+\include{1-il-problema}
+\include{2-modello-attacco}
+\include{3-tpm}
+\include{4-tpm-sw-stack}
+\include{5-applicazioni}
+\include{6-altri-approcci-prospettive}
+\include{conclusione}
+\include{A-appendice}
+
+% mostra tutte le citazioni anche se non sono state citate esplicitamente
+%\nocite{*}
+%\printbibliography[heading=bibintoc] % Bibliografia nell'indice
+
+\input{ringraziamenti}
+\end{document}

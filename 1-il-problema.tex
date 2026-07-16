@@ -1,0 +1,125 @@
+\chapter{Il problema}\label{ch:il_problema}
+
+\section{Perché serve il Trusted Computing?}\label{sec:perche_tc}
+Come già analizzato nell'introduzione di questo testo, uno dei problemi più rilevanti nel campo delle applicazioni sicure è la protezione della piattaforma hardware contro attacchi alla sua integrità o modifiche del codice sicuro.
+
+Sebbene le soluzioni software possano fornire una certa protezione, sono certamente limitate dall'incapacità di presentare all'utente un ambiente di esecuzione che possa essere separato in modo efficace dalla realtà fisica. Tecniche come l'emulazione o l'intercettazione delle operazioni (ad esempio, la modalità SMI delle CPU) non possono garantire la protezione intrinseca necessaria in scenari di alta sicurezza. 
+
+Un ulteriore aspetto importante riguarda i segreti memorizzati e utilizzati dai dispositivi, come chiavi private essenziali per l'autenticazione o certificati digitali. Non è necessario che questi dati vengano trattati direttamente a livello software, ma piuttosto tramite informazioni derivate da essi. La loro protezione è cruciale, non solo per salvaguardare l'accesso ai servizi e alle risorse sensibili, ma anche per prevenire che il sistema operativo o altre applicazioni possano compromettere l'integrità dei dati. Per tale motivo, la protezione hardware di questi segreti diventa fondamentale, poiché garantisce che i segreti restino sicuri anche in caso di attacchi software senza mai esporli in chiaro, nemmeno al sistema operativo stesso.
+
+Nell'ambito dei \acrshort{pc} (o dei dispositivi in generale) gli attacchi e gli incidenti più noti sono quelli che riguardano l'\textit{home banking}, ma esistono anche attacchi rivolti ai server utilizzati dalle aziende per fornire servizi e trattare dati sensibili. Purtroppo, i rischi si estendono anche ad altri tipi di piattaforme, come i sistemi \textit{embedded}, che sono spesso meno protetti. Esempi tipici di queste vulnerabilità sono la manipolazione dei dati e del codice presenti su controller \textit{automotive}, sistemi antifurto delle auto o sistemi di domotica.
+
+Fino a oggi tutti i tentativi di risoluzione che affrontano il problema da un punto di vista puramente software non hanno trovato conclusioni incoraggianti. Come ci insegna l'esperienza e la storia del mondo delle \textit{smart card}, una base di sicurezza fidata e a prova di manomissione non può essere implementata usando solo soluzioni software. Questo approccio si applica sia alle piattaforme \acrshort{pc} sia a quelle \textit{embedded}. Per questo motivo è indispensabile avere un ancoraggio hardware, un componente fidato che possa fungere da base per costruire una catena di fiducia in grado di resistere a tentativi di manipolazione. Il concetto verrà approfondito nella sezione dedicata alla \enquote{Root of Trust}.
+
+Il mondo informatico si è accorto della necessità di sistemi di sicurezza ancorati sull'hardware per diverse ragioni e in momenti specifici. Principalmente negli anni '90, quando inizia a diffondersi Internet, l'industria si spostò \textit{online} e questo implicò una necessità di sicurezza anche nel \textit{cloud}: questa necessità venne sottolineata velocemente dai diversi e nuovi attacchi \textit{malware} sempre più sofisticati.
+
+Fino a quel momento il mezzo principale per difendersi dai \textit{malware} erano gli antivirus. Ma il difetto fondamentale di un approccio di difesa basato esclusivamente sul software è che il software non può verificare efficacemente sé stesso. Se un \textit{malware} ottiene l'esecuzione con lo stesso livello di privilegio del software antivirus, può semplicemente disabilitarlo e nascondersi dagli \enquote{occhi} del sistema operativo. In quegli anni gli attacchi informatici iniziarono a prendere di mira anche il \textit{firmware} e il codice del \textit{bootloader}, che raramente vengono verificati dal software antivirus. 
+
+In secondo luogo si espande l' \textit{e-commerce}, che porta a un aumento ingente di transazioni finanziarie \textit{online}. Diventa critica la presenza di un'infrastruttura per permettere alle banche e altre istituzioni di supportare questo nuovo mercato, ma soprattutto di permettere agli utenti di accedere ai servizi (come l'\textit{home banking}) in maniera segreta, protetta e sicura.
+
+Per verificare in modo sicuro la configurazione del software, una piattaforma di calcolo ha bisogno di un luogo per registrare e verificare lo stato del software che sia esterno allo spazio di memoria principale del sistema. Questo concetto si chiama \enquote{monitor di sicurezza hardware}.
+
+Il \acrshort{tc} è l'implementazione tecnologica di tecniche che già sono utilizzate ogni giorno per stabilire legami di fiducia tra persone. Questa soluzione tecnologica è progettata per trasformare ogni piattaforma in un ambiente sicuro: ovvero deve esistere un metodo per isolare efficacemente determinati dati e applicazioni dal \enquote{resto del mondo}. 
+
+La tecnologia di \acrshort{tc} è progettata affinché la piattaforma non possa mentire né travisare, nemmeno se l'utente desidera farlo: elemento essenziale, poiché nessuno può fidarsi di una piattaforma che offre tale possibilità. Questa tecnologia cerca di garantire che gli utenti che si espongono a rischi lo facciano tramite una scelta consapevole. Il \acrshort{tc} include metodi progettati per proteggere gli interessi degli utenti, mantenendo la loro \textit{privacy}, e per assicurare che possano continuare a fare \textit{backup} e recuperare i dati. I programmi software e gli utenti devono scegliere deliberatamente di ignorare i suggerimenti della tecnologia se vogliono creare dati che non possano essere recuperati.
+
+Una piattaforma può garantire l'affidabilità dei suoi componenti solo se si fonda su meccanismi di fiducia sicuri. In questo contesto, le \textit{Root of Trust} svolgono un ruolo cruciale: costituiscono il fondamento su cui si costruisce la sicurezza di una piattaforma, in quanto assicurano che ogni operazione venga eseguita correttamente e senza alterazioni. Se una \textit{Root of Trust} viene compromessa, disabilitata o alterata, la piattaforma perde la sua capacità di essere sicura.
+
+
+\section{Root of Trust}\label{sec:root_of_trust}
+La \acrfull{rot} è una componente di sicurezza essenziale e fondamentale che fornisce un insieme di funzioni affidabili, utilizzabili dal resto del dispositivo o sistema per stabilire meccanismi e livelli di sicurezza elevati. 
+
+La \acrshort{rot} è spesso integrata come un chip e costituisce una fonte di fiducia fondamentale per qualsiasi sistema crittografico. Quando si parla di \acrshort{rot} come un chip, allora lo si può indicare come un \textit{Hardware Root of Trust} (H-RoT). Richiedendo che la \acrshort{rot} sia intrinsecamente affidabile, deve essere sicura per definizione. Per questo la forma di implementazione più sicura è in hardware, in quanto diventa immune agli attacchi \textit{malware}. Operativamente può essere un modulo di sicurezza autonomo o implementato come modulo di sicurezza all'interno di un processore o di un \textit{System on Chip} (SoC).
+
+Le funzioni principali di una \acrshort{rot} includono il \textit{boot} sicuro, la misurazione, la memorizzazione sicura, la segnalazione e la verifica, con la capacità di conservare le chiavi crittografiche riservate al di fuori del software di sistema, che è frequentemente mirato dagli attaccanti. 
+
+Il concetto di \textit{boot} sicuro prevede di instaurare una catena di fiducia necessaria per garantire un processo di avvio sicuro e con codice legittimo. Se il primo pezzo di codice è stato verificato positivamente, allora le credenziali associate con l'accesso a quel codice vengono poi considerate come fidate nell'esecuzione di ogni pezzo successivo. In altre parole, le \acrshort{rot} permettono a una piattaforma di dimostrare che è un ambiente protetto, rilasciando i dati protetti solo dopo che il software in esecuzione è stato verificato come sicuro: software sicuro e piattaforma hardware fidata sono gli ingredienti per un ambiente protetto. 
+
+A titolo aggiuntivo si nota che il \acrshort{tc} non è sempre ben visto nell'immaginario comune (uscendo da quello strettamente tecnico) poiché legato anche a tecniche di \acrfull{drm}. Il \acrshort{drm} viene usato per controllare l'accesso ai contenuti digitali e per impedire azioni che violino i diritti d'autore, di fatto imponendo restrizioni sulle operazioni che gli utenti possono effettuare sui contenuti digitali (ad esempio l'esecuzione esclusiva di applicazioni firmate, la richiesta di licenze per determinati contenuti o il vincolo di file multimediali a una specifica macchina). Si sottolinea che questo è solo uno dei possibili utilizzi, nonostante sia uno dei più pubblicamente controversi.
+
+
+\section{Ipotesi e considerazioni}\label{sec:ipotesi_considerazioni}
+Per poter parlare di una tecnologia come il \acrshort{tpm}, bisogna essere consapevoli che è solo una delle possibili soluzioni a un problema più ampio. A questo fine si delineano i concetti principali per descrivere le problematiche a cui si vorrebbe far fronte.
+
+Come prima assunzione, è necessario immaginare di prendere in esame un modello che preveda attacchi ragionevoli e non hardware. Questo perché si vorrebbe calarsi in un mondo -- non ideale -- che approssima al meglio possibile le reali relazioni di potere e rischio che sussistono tra utenti e fornitori di servizi (intesi come entità hardware, software o attori dell'industria informatica).
+
+Per attacchi ragionevoli si intende una situazione nella quale l'utente comune non è vittima di attacchi mirati da parte di agenti che possiedono risorse e capacità di calcolo rasenti al massimo dello stato corrente dell'arte. Verranno citate per completezza e consapevolezza anche casistiche in cui la posta in gioco è maggiore, come ambienti in cui gli attori sono entità del calibro di organizzazioni governative.
+
+Per attacchi non hardware si intende escludere la possibilità che l'agente attaccante abbia accesso fisico illimitato al dispositivo e che questo non sia compromesso a prescindere. Il problema della sicurezza intesa come accesso fisico a una macchina è un problema diverso, ma è anche il dilemma più vecchio: prima dell'avvento delle reti di interconnessione tra calcolatori, l'unico modo per interagire con una macchina implicava la presenza fisica dell'operatore. 
+
+Questo tipo di problema trova sicuramente spazio anche oggigiorno, ma l'ambito di questo testo vuole analizzare alcune soluzioni a questioni che non ammettono l'ipotesi di una piattaforma già compromessa. Se il dispositivo personale di un utente non è affidabile, allora qualsiasi sistema per la protezione di credenziali e dati utente che deve essere utilizzato su quest'ultimo risulterebbe inutile, poiché non esisterebbe una base sicura.
+
+Per fare una sintesi, assumiamo che:
+\begin{itemize}
+    \item l'attaccante sia non-onnipotente;
+    \item i dispositivi non siano compromessi prima dell'applicazione delle soluzioni;
+    \item i dispositivi non siano fisicamente disponibili all'attaccante in maniera incontrollata.
+\end{itemize}
+
+Quello che si vuole analizzare principalmente sono le soluzioni per:
+\begin{enumerate}
+    \item garantire l'accesso sicuro alle credenziali di autenticazione;
+    \item verificare il software del sistema operativo, indipendentemente dallo stesso, per contrastare possibili condotte malevole verso la CPU.
+\end{enumerate}
+
+Il \acrshort{tpm} offre strumenti per lavorare verso l'ottenimento di queste condizioni, tant'è che fin dalla prima specifica viene esplicitato che la sicurezza dell'ambiente fisico di esecuzione non è definita e che sarà compito dei singoli produttori occuparsene. È importante ribadire che questo tipo di sicurezza è un problema che sta a monte rispetto a quello di garantire credenziali sicure. 
+
+
+\section{Elementi essenziali di crittografia}\label{sec:crittografia}
+Di seguito vengono elencate alcune nozioni essenziali per poter comprendere quanto trattato.
+
+\subsection{Algoritmi crittografici}\label{subsec:algoritmi_crittografici}
+Il cuore di un sistema crittografico sono in generale gli algoritmi crittografici di cui questo fa uso. Un algoritmo crittografico prende un input (come un messaggio) e lo trasforma tramite funzioni matematiche e una chiave che controlla queste funzioni per produrre un singolo output.
+
+Le operazioni di cifratura utilizzano la chiave crittografica per trasformare il messaggio originale in una forma crittografata. La decifratura fa l'opposto: usa una chiave crittografica per trasformare un messaggio crittografato nel suo formato originale (detto anche testo in chiaro). 
+
+Una chiave è semplicemente un numero o una sequenza di bit. Si vorrebbe usare una chiave sufficientemente grande in modo che non possa essere indovinata o scoperta con tentativi sistematici. La lunghezza di questa chiave dipende dal tipo di algoritmo e da quanto il sistema deve essere sicuro (ad esempio, oggi sono molto usate le chiavi RSA a $2048$ bit, ma lo standard si sta spostando verso i $3072$ bit).
+
+Esistono due grandi famiglie di algoritmi crittografici, che differiscono per il numero e i tipi di chiavi utilizzate: algoritmi simmetrici e algoritmi asimmetrici.
+
+\subsubsection{Algoritmi simmetrici}\label{subsubsec:algoritmi_simmetrici}
+Gli algoritmi simmetrici utilizzano la stessa chiave per la cifratura e la decifratura. La forza di un algoritmo simmetrico dipende dalla dimensione della chiave, con la sicurezza che cresce esponenzialmente con il numero di bit. La chiave deve essere nota al mittente e al destinatario prima della comunicazione sicura.
+
+\subsubsection{Algoritmi asimmetrici o a chiave pubblica}\label{subsubsec:algoritmi_asimmetrici}
+Negli algoritmi asimmetrici le operazioni di cifratura e decifratura sono differenti e utilizzano chiavi differenti. Insieme le chiavi formano una coppia detta coppia di chiavi pubblica e privata. 
+
+Il destinatario di un messaggio rende pubblica la propria chiave pubblica e conserva la chiave privata. Per comunicare è sufficiente utilizzare la sua chiave pubblica per cifrare il messaggio. Così facendo la decifratura -- per definizione dell'algoritmo -- può essere effettuata solo con la chiave privata. Se qualcuno intercetta il messaggio lungo il tragitto, non sarà in grado di leggerlo senza accesso alla chiave privata.
+
+Il principale vantaggio rispetto agli algoritmi simmetrici è che non è necessario scambiare la chiave in modo sicuro prima di iniziare la comunicazione, rendendo così il sistema molto più semplice da gestire e utilizzare. La chiave pubblica può essere nota a chiunque senza che questo rappresenti un rischio, a patto che la chiave privata sia davvero nota solo al suo proprietario.
+
+
+\subsection{Funzioni di hashing}\label{subsec:funzioni_hashing}
+Le funzioni di \textit{hashing} sono invece sfruttate per garantire l'integrità dei messaggi trasmessi tra le parti che comunicano. L'integrità fornisce la certezza che il messaggio non sia stato manomesso. I meccanismi di \textit{hashing} sono utilizzati anche per firmare digitalmente i dati.
+
+Una funzione di \textit{hash} sicura è come un algoritmo che può cifrare ma non decifrare: in altre parole, dato un input è possibile calcolare un output, ma dato un output (messaggio cifrato) non è possibile risalire all'input (messaggio in chiaro). Due proprietà importanti di queste funzioni sono:
+\begin{enumerate}
+    \item Dallo stesso input si ottiene sempre la stessa stringa in output.
+    \item Indipendentemente dall'input o dalla sua lunghezza, l'output ha sempre la stessa dimensione.
+\end{enumerate}
+
+Il mittente genera il messaggio insieme a un \enquote{digest}, ovvero utilizza il messaggio come input alla funzione di \textit{hashing}. Il \enquote{digest} di un messaggio può essere inteso come un suo \enquote{riepilogo}. Il messaggio cifrato è poi spedito insieme al \enquote{digest}, in modo tale che il destinatario possa decifrare il messaggio e inserirlo nella stessa funzione di \textit{hash}. Se i due \enquote{digest} (quello ricevuto e quello calcolato) coincidono, allora il messaggio è originale. 
+
+
+\subsubsection{Hash Extend}\label{subsubsec:hash_extend}
+La funzione di \textit{extend} di un \textit{hash} non è comune nella crittografia in generale, ma è fondamentale per alcune attività del \acrshort{tpm}. 
+
+L'operazione di \textit{extend} inizia con un valore di input $A$ a cui viene concatenato un altro valore $B$ (il valore che deve essere esteso), ottenendo la stringa $A \mathbin{\Vert} B$. Successivamente, si applica la funzione di \textit{hash} a questa unione e il risultato andrà a rimpiazzare il vecchio valore $A$:
+\begin{equation}\label{eq:hash_extend}
+    A_{\text{new}} = \operatorname{hash}(A_{\text{old}} \mathbin{\Vert} B)
+\end{equation}
+
+Grazie alle proprietà di \textit{hashing} sicuro, diventa impossibile ripristinare un valore \textit{hash} esteso al suo valore precedente, permettendo al \acrshort{tpm} di mantenere uno \enquote{storico} delle modifiche e delle misurazioni.
+
+
+\subsubsection{HMAC}\label{subsubsec:hmac}
+Un \acrfull{hmac} è una funzione di \textit{hash} che utilizza una chiave segreta per generare un \acrfull{mac} univoco. Questo \acrshort{mac} è utile per firmare dati o autenticare entità, oltre che per garantire l'integrità grazie alle proprietà di \textit{secure hash}.
+
+Il destinatario riceve il \acrshort{mac} calcolato dal mittente usando la chiave condivisa e la stessa funzione di \textit{hash}. Se il \acrshort{mac} calcolato dal destinatario è uguale a quello trasmesso, allora il messaggio è integro; inoltre, siccome è stata necessaria una chiave condivisa, il mittente è anche autenticato agli occhi del destinatario.
+
+
+\subsection{Certificati digitali}\label{subsec:certificati_digitali}
+Un certificato digitale è un documento elettronico che associa una chiave pubblica a un'entità, come una persona o un'organizzazione, e ne attesta l'autenticità attraverso la firma digitale di una terza parte fidata, chiamata \acrfull{ca}. I certificati sono utilizzati principalmente per garantire la sicurezza delle comunicazioni in sistemi crittografici asimmetrici, in cui la chiave pubblica deve essere affidabile. 
+
+Essi permettono di stabilire la fiducia tra soggetti che non si conoscono direttamente, in modo tale che non debbano scambiarsi le chiavi pubbliche prima della comunicazione: possono \enquote{semplicemente fidarsi} che, se la chiave è firmata da una \acrshort{ca} attendibile, allora anche l'entità con cui stanno per parlare è attendibile. 
+
+L'infrastruttura che gestisce questi certificati è conosciuta come \acrfull{pki}. La \acrshort{pki} garantisce la validità e l'integrità del certificato attraverso un processo di verifica dell'identità del richiedente, svolto dalla \acrshort{ca} stessa.

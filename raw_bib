@@ -1,0 +1,77 @@
+Bibliografia e sitografia
+[1] Brandl, Hans. "Trusted computing: The tcg trusted platform module specification." Infineon Technologies AG (2004)
+http://osgug.ucaiug.org/utilisec/embedded/Shared%20Documents/Device%20Security/VariousInputs/ShrinathInputs/Basic_Knowledge_EC2004.pdf
+[2] Justin D. Osborn and David C. Challener. Trusted Platform Module Evolution
+Trusted Platform Module Evolution - 32-02-Osborn.pdf 
+[3] Arthur, Will, et al. A Practical Guide to TPM 2.0: Using the New Trusted Platform Module in the New Age of Security. Apress, 2015. DOI.org (Crossref)
+https://link.springer.com/book/10.1007/978-1-4302-6584-9
+[4] «Trusted Computing: la sicurezza dei dispositivi si basa su reti di fiducia». Agenda Digitale, 28 giugno 2022, https://www.agendadigitale.eu/sicurezza/privacy/trusted-computing-la-sicurezza-dei-dispositivi-si-basa-su-reti-di-fiducia/
+[5] NOC Jan 2019: Hardware Security - YouTube https://www.youtube.com/watch?v=wkgZk6hgEJs&list=PLbRMhDVUMngfulSvKL0cT-tn8ULtERsWk&index=2
+[6] SHA-1 Uses in TPM v1.2, April 2, 2010. Ken Goldman (IBM Research), Stan Potter (United States Department of Defense)
+https://trustedcomputinggroup.org/wp-content/uploads/SHA1-Impact_V2.0.pdf
+[7] Cyber Security Resource Center for Threats & Tips | Kaspersky. https://www.kaspersky.com/resource-center
+[8] 8 Types of Attack in Cryptography
+https://internationalsecurityjournal.com/types-of-attack-in-cryptography/
+[10] Introduction to the TPM 1.2, Mark Ryan University of Birmingham. DRAFT of March 24, 2009
+https://courses.cs.vt.edu/~cs5204/fall10-kafura-BB/Papers/TPM/Intro-TPM.pdf
+[11] TPM 2.0: A Brief Introduction
+https://trustedcomputinggroup.org/wp-content/uploads/2019_TCG_TPM2_BriefOverview_DR02web.pdf
+[12] TPM Use Cases. NSA, Novembre 2024
+https://media.defense.gov/2024/Nov/06/2003579882/-1/-1/1/CSIzo-TPM-USE-CASES.PDF
+[13] «Trusted Computing: The Essential Building Blocks to a Secure System». Trusted Computing Group, 17 ottobre 2023
+https://trustedcomputinggroup.org/trusted-computing-the-essential-building-blocks-to-a-secure-system/
+[14] Prado, Sergio. «Introduction to TPM (Trusted Platform Module)». Sergioprado.Blog, https://sergioprado.blog/introduction-to-tpm-trusted-platform-module/ 
+[15] RoT: The Foundation of Security - PUFsecurity | PUF-Based Security IP Solutions | Secure the Connected World. 14 maggio 2020,
+https://www.pufsecurity.com/document/rot-the-foundation-of-security/
+[16] «Hardware Root of Trust: Everything You Need to Know». Rambus, 
+https://www.rambus.com/blogs/hardware-root-of-trust/#whatis
+[17] Alcune nozioni vengono anche dagli appunti delle lezioni del corso di Algebra per i Codici e la Crittografia del Professore Giuzzi Luca, AA 23-24
+[18] Che cos’è un cyberattacco? | Microsoft Security.
+https://www.microsoft.com/it-it/security/business/security-101/what-is-a-cyberattack
+[19] What Is a Cyberattack? | IBM. 15 agosto 2021, 
+https://www.ibm.com/think/topics/cyber-attack
+[20] «RoT: The Foundation of Security». Design And Reuse,
+https://www.design-reuse.com/articles/47992/rot-the-foundation-of-security.html
+[21] «What Is a Root-of-Trust (RoT)?» Trusted Computing Group,
+https://trustedcomputinggroup.org/about/what-is-a-root-of-trust-rot/
+[21] The TCG Specification Architecture Overview 
+https://trustedcomputinggroup.org/resource/tcg-architecture-overview-version-1-4/
+[22] Introduction to Trusted Computing: TPM 101. Ariel Segall, MIT Edu
+https://opensecuritytraining.info/IntroToTrustedComputing_files/Day1-4-tpm101.pdf
+[23] tpm2-software/tpm2-tools. 2015. Linux TPM2 & TSS2 Software
+https://github.com/tpm2-software/tpm2-tools
+[24] Trusted Platform Module (TPM) based Security on Notebook PCs - White Paper, 20 Giugno 2002
+http://ogobin.de/TCPA/Trusted_Platform_Module_White_Paper.pdf
+[25] TPM Key Attestation. 17 Maggio 2023
+https://learn.microsoft.com/en-us/windows-server/identity/ad-ds/manage/component-updates/tpm-key-attestation
+[26] Thomas & Erin Ptacek. You Don’t Want XTS. 30 Aprile 2014
+https://sockpuppet.org/blog/2014/04/30/you-dont-want-xts/
+[27] NIST. Public Comments on the XTS-AES Mode. 2008
+https://csrc.nist.gov/csrc/media/projects/block-cipher-techniques/documents/bcm/comments/xts/collected_xts_comments.pdf
+[28]«RFC 2104: HMAC: Keyed-Hashing for Message Authentication». Net Dyno, 26 Dicembre 2023
+https://netdyno.dev/rfc-2104/
+[29] Proudler, Graeme, et al. Trusted Computing Platforms: TPM2.0 in Context. Springer International Publishing, 2014
+https://link.springer.com/book/10.1007/978-3-319-08744-3
+[30] What Is a Virtual Trusted Platform Module (vTPM)? TCG
+https://trustedcomputinggroup.org/about/what-is-a-virtual-trusted-platform-module-vtpm/
+[31] Paul Alcorn. «AMD TPM Exploit: faulTPM Attack Defeats BitLocker and TPM-Based Security (Updated)». Tom’s Hardware, 2 maggio 2023
+https://www.tomshardware.com/news/amd-tpm-hacked-faultpm
+[32] Breaking Bitlocker - Bypassing the Windows Disk Encryption. stacksmashing, 3 Febbraio 2024 https://www.youtube.com/watch?v=wTl4vEednkQ
+[33] fTPM: A Software-Only Implementation of a TPM Chip. Proceedings of the 25th USENIX Security Symposium, 2016
+https://www.usenix.org/system/files/conference/usenixsecurity16/sec16_paper_raj.pdf
+[34] Reversing the AMD Secure Processor (PSP) - Part 1: Design and Overview». Dayzerosec, 17 aprile 2023,
+https://dayzerosec.com/blog/2023/04/17/reversing-the-amd-secure-processor-psp.html
+[35] Mann, Tobias. Torvalds Suggests Disabling AMD’s «stupid» fTPM RNG. https://www.theregister.com/2023/07/31/linus_torvalds_ftpm/
+[36] Mark Tyson. «Linus Torvalds Is Tired of AMD’s “Stupid” fTPM Errors». Tom’s Hardware, 31 luglio 2023, https://www.tomshardware.com/news/linus-torvalds-amd-ftpm-errors
+[37] Linus Torvalds is sick of AMD’s nonsense
+https://www.youtube.com/watch?v=0AwwAN0ysLQ
+[38] Nasi, Michele. «fTPM: cos’è e perché l’attacco ai processori AMD non è così grave». IlSoftware.it, 3 maggio 2023, 
+https://www.ilsoftware.it/ftpm-cos-e-e-perche-l-attacco-ai-processori-amd-non-e-cosi-grave_25944/
+[39] Jacob, Hans Niklas, et al. – SecT. faulTPM: Exposing AMD fTPMs’ Deepest Secrets, 2 Maggio 2023
+http://arxiv.org/pdf/2304.14717
+[40] PSPReverse/ftpm_attack. 2023. PSPReverse, 1 marzo 2025. GitHub
+https://github.com/PSPReverse/ftpm_attack
+[41] Virtual Trusted Platform Module (vTPM), Wiki XenProject
+https://wiki.xenproject.org/wiki/Virtual_Trusted_Platform_Module_(vTPM)
+[42] Amosa, Ron. Technology Is Political. No Matter How Much People Try to Say It’s Not. 
+https://news.uncommonengineer.com/p/technology-is-political-no-matter

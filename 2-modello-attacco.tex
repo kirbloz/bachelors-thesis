@@ -1,0 +1,110 @@
+\chapter{Modello di attacco}\label{ch:modello_attacco}
+
+Uscendo temporaneamente dal contesto della sicurezza hardware, è opportuno approfondire la natura delle minacce da cui ci si intende proteggere e definire rigorosamente cosa si intenda per \enquote{sistema sicuro}.
+
+\begin{quote}
+    \enquote{I sistemi di sicurezza che utilizzano la crittografia sono progettati per impedire alle persone malintenzionate di manipolare i tuoi dati, impersonare te o modificare documenti senza essere rilevati.}
+\end{quote}
+
+Questa affermazione può essere un buon punto di partenza se si cercasse un principio fondamentale da non dimenticare mai. Tuttavia, la sua semplicità rischia di far trascurare l'intrinseca complessità dei sistemi di sicurezza e di quelli che gestiscono informazioni più in generale. 
+
+Durante lo studio di soluzioni reali, tuttavia, diventa necessario compiere un salto logico dalla teoria alla pratica. Possiamo facilitare questo passaggio fornendo alcune definizioni operative: affermiamo che la crittografia è l'arte di comunicare in presenza di avversari, sfruttando operazioni, proprietà e problemi matematici. 
+
+
+\section{I requisiti della sicurezza informatica}\label{sec:requisiti_sicurezza}
+La sicurezza della comunicazione si basa tradizionalmente su quattro requisiti fondamentali:
+\begin{itemize}
+    \item \textbf{Confidenzialità:} il messaggio, ossia il contenuto della comunicazione, deve rimanere segreto e intellegibile solo al legittimo mittente e al destinatario autorizzato.
+    \item \textbf{Integrità:} le informazioni non devono poter essere modificate durante l'archiviazione o il transito. Qualora ciò avvenga, la modifica deve essere rilevata tempestivamente.
+    \item \textbf{Autenticazione:} l'identità del mittente e del destinatario deve essere nota, verificata e confermata in modo univoco.
+    \item \textbf{Non ripudio:} l'entità da cui origina un messaggio crittografato non deve poter negare di esserne l'autore.
+\end{itemize}
+
+
+\section{Attaccanti e modelli di attacco}\label{sec:attaccanti_modelli}
+Un attaccante è un'entità -- non necessariamente limitata a un singolo individuo -- che perpetra attacchi informatici al fine di ottenere informazioni senza autorizzazione o causare il malfunzionamento di sistemi.
+
+Per non estendere eccessivamente questa sezione trattando argomenti che meriterebbero una trattazione indipendente, definiamo quando si dice che un attaccante \enquote{vince}, limitatamente al contesto specifico dei chip di sicurezza dedicati come il \acrshort{tpm}. Nello specifico, si assume che un attaccante abbia successo se:
+\begin{itemize}
+    \item riesce a recuperare, anche parzialmente, i dati segreti o le chiavi private contenuti all'interno del \acrshort{tpm};
+    \item riesce ad alterare o modificare arbitrariamente i valori dei vari registri di misurazione (\acrfull{pcr});
+    \item riesce a eseguire operazioni di autenticazione o decifratura senza possedere le credenziali legittime di accesso al \acrshort{tpm}, o se riesce a porsi nelle condizioni di potervi accedere liberamente.
+\end{itemize}
+
+Come già introdotto, analizzare le azioni dannose più comuni portate avanti dagli attaccanti è essenziale per comprendere a fondo l'ambiente che ospita le soluzioni di sicurezza hardware.
+
+\clearpage
+\subsection{Il principio di Kerckhoffs}\label{subsec:kerckhoffs}
+Nel 1883 venne enunciato il celebre principio di Kerckhoffs:
+\begin{quote}
+    \enquote{La sicurezza di un sistema non deve dipendere dalla segretezza dell'algoritmo, bensì dal tenere segreta la chiave.}
+\end{quote}
+
+Questo principio è stato in seguito riformulato anche da Claude Shannon -- padre della teoria dell'informazione -- ma la sua sostanza rimane invariata. Un algoritmo crittografico è ben progettato se la sua robustezza non dipende dal mantenere segreto l'algoritmo stesso. L'algoritmo si considera sicuro se è computazionalmente impossibile violarlo senza conoscere il segreto, ovvero la chiave.
+
+
+\subsection{Attacchi a forza bruta (Brute-force)}\label{subsec:bruteforce}
+Sulla base di queste conoscenze, definiamo gli attacchi \textit{brute-force}: una tecnica di forzatura di un crittosistema che prevede il calcolo e la verifica sistematica di tutte le chiavi possibili nello spazio di ricerca.
+
+Dal punto di vista della progettazione del crittosistema, difendersi dagli attacchi a forza bruta significa scegliere dimensioni delle chiavi sufficientemente grandi da rendere computazionalmente impraticabile provarle tutte, oppure limitare il numero di tentativi eseguibili in un dato intervallo di tempo. Dal punto di vista implementativo, è spesso sufficiente prevedere un meccanismo di blocco (\textit{lock-out}) quando viene rilevato un certo numero di tentativi di accesso falliti (ad esempio, uno smartphone che si disabilita temporaneamente dopo l'immissione di $5$ PIN errati).
+
+
+\subsection{Debolezze dell'algoritmo}\label{subsec:debolezze_algoritmo}
+Utilizzare chiavi molto grandi non scongiura automaticamente tutti i rischi. Se un algoritmo non è stato progettato con rigore, potrebbero esistere delle \enquote{scorciatoie} nel problema matematico alla base dell'algoritmo stesso. Queste scorciatoie talvolta forniscono informazioni utili per ricavare la chiave, riducendo sensibilmente lo spazio di ricerca da esplorare.
+
+La progettazione di algoritmi crittografici è un processo complesso, lento e delicato. La robustezza matematica di un algoritmo si basa sulla difficoltà di risolvere un particolare problema (come la fattorizzazione di grandi numeri primi), e tale difficoltà è legata allo stato dell'arte della ricerca scientifica. È estremamente difficile progettare un algoritmo immune a qualsiasi attacco futuro, poiché la conoscenza matematica e la capacità di calcolo evolvono costantemente.
+
+La maggior parte degli algoritmi considerati sicuri oggi sono il risultato dello sforzo collettivo della comunità scientifica e di anni di analisi pubblica (\textit{peer review}) nel tentativo di violarli. Per questo motivo si preferisce sempre l'uso di standard aperti e ampiamente verificati rispetto ad algoritmi proprietari o non testati.
+
+Le debolezze, tuttavia, non sono solo matematiche: spesso è l'implementazione software o hardware dell'algoritmo a introdurre falle logiche. Questa problematica è molto diffusa perché, a causa della complessità dei sistemi moderni, è facile che l'impatto di una singola scelta implementativa venga trascurato, compromettendo la sicurezza del sistema nella sua interezza.
+
+
+\subsection{Classificazione degli attacchi crittografici}\label{subsec:classificazione_attacchi}
+Nel concreto, per violare un sistema non è sempre necessario esplorare l'intero spazio delle chiavi. Spesso è sufficiente ricavare informazioni su alcune proprietà del crittosistema. Di seguito vengono descritti i principali modelli di attacco teorici, ordinati in base alla quantità di informazioni a disposizione dell'attaccante.
+
+\subsubsection{Ciphertext-only (Solo testo cifrato)}\label{subsubsec:ciphertext_only}
+In questo scenario, l'avversario dispone esclusivamente dell'analisi del testo cifrato ($c$). L'attaccante non ha alcuna conoscenza del testo in chiaro originale, ma tenta comunque di ricavarne dettagli utili. Assumendo che l'algoritmo sia noto (secondo il principio di Kerckhoffs), l'attaccante può utilizzare tecniche come la ricerca a forza bruta o l'analisi delle frequenze.
+
+L'analisi delle frequenze consiste nello studiare la ricorrenza dei caratteri nel testo cifrato. Poiché ogni lingua naturale presenta una distribuzione statistica tipica dei caratteri, identificare i simboli più frequenti può rivelare la lingua di partenza e fornire indizi cruciali per la decifratura. Sebbene più sofisticata del \textit{brute-force}, questa tecnica è facilmente contrastabile mediante algoritmi di cifratura moderni e chiavi lunghe.
+
+\subsubsection{Known Plaintext (Testo in chiaro noto)}\label{subsubsec:known_plaintext}
+In questo caso, l'attaccante ha a disposizione alcune coppie di testo in chiaro (\textit{plaintext}) e il corrispondente testo cifrato (\textit{ciphertext}). L'obiettivo è dedurre la chiave analizzando le relazioni logiche tra i due elementi. Un crittosistema sicuro deve garantire che i testi cifrati siano statisticamente indipendenti dal contenuto del testo in chiaro, eliminando qualsiasi correlazione utile.
+
+\subsubsection{Chosen Plaintext (Testo in chiaro scelto)}\label{subsubsec:chosen_plaintext}
+In questo modello, si assume che l'attaccante abbia la capacità di scegliere testi in chiaro arbitrari e ottenerne i rispettivi testi cifrati. Si tratta di una minaccia sofisticata, spesso realizzata ingannando un dispositivo affinché esegua operazioni di cifratura per conto dell'attaccante (ad esempio tramite attacchi di tipo \textit{Man-in-the-Middle}).
+
+\subsubsection{Chosen Ciphertext (Testo cifrato scelto)}\label{subsubsec:chosen_ciphertext}
+Rappresenta uno dei modelli di attacco più distruttivi. L'attaccante può selezionare testi cifrati specifici e ottenerne la decifratura in chiaro. Questo permette di interagire direttamente con il processo di decifratura, manipolando i messaggi per dedurre informazioni sulla chiave segreta, indipendentemente dal contenuto della sessione legittima.
+
+
+\subsection{Attacchi di tipo Replay}\label{subsec:attacchi_replay}
+In un attacco di tipo \textit{Replay}, l'attaccante intercetta una comunicazione legittima tra due entità fidate e la riproduce in un secondo momento per impersonare il mittente originario, senza la necessità di decifrare il contenuto del messaggio.
+
+
+
+Come evidenziato nello schema precedente, l'attaccante esegue prima un'attività di intercettazione (\textit{sniffing}) del traffico legittimo e successivamente inoltra nuovamente i dati autentici verso il server di destinazione. Per mitigare questa minaccia è necessario impiegare meccanismi dinamici, come chiavi di sessione temporanee, l'inserimento di marcatori temporali (\textit{timestamp}) o contatori di sequenza all'interno dei messaggi cifrati, permettendo al destinatario di rilevare e scartare i pacchetti duplicati.
+
+
+\subsection{Attacchi a canale laterale (Side-channel Attack)}\label{subsec:side_channel}
+Gli attacchi a canale laterale sfruttano le debolezze fisiche dell'implementazione hardware piuttosto che le vulnerabilità teoriche dell'algoritmo matematico.
+
+
+
+Durante l'esecuzione di un'operazione crittografica (come la cifratura AES-128 illustrata in figura), i circuiti integrati rilasciano involontariamente informazioni fisiche misurabili. Come mostrato nel diagramma sovrastante, posizionando una sonda elettromagnetica (\textit{EM Probe}) in prossimità del chip sotto attacco e collegandola a un oscilloscopio, l'attaccante è in grado di raccogliere le tracce elettromagnetiche emanate durante i calcoli. Analizzando queste tracce tramite tecniche statistiche (come la \textit{Correlation Electromagnetic Analysis} o CEMA), è possibile ricostruire la chiave crittografica segreta.
+
+Le principali categorie di questi attacchi includono:
+\begin{itemize}
+    \item \textbf{Timing attacks:} analisi delle differenze microscopiche nel tempo richiesto per eseguire operazioni di cifratura con chiavi diverse;
+    \item \textbf{Power analysis:} monitoraggio dei flussi di assorbimento di corrente elettrica del chip;
+    \item \textbf{Emissioni EM o acustiche:} misurazione delle radiazioni elettromagnetiche o del rumore generato dai componenti fisici.
+\end{itemize}
+
+Le contromisure per neutralizzare tali vettori includono l'introduzione di operazioni fittizie (\textit{dummy cycles}) e tecniche di mascheramento dei segnali tramite randomizzazione dei dati gestiti a livello hardware.
+
+
+\subsection{Attacchi fisici e cyber-fisici}\label{subsec:attacchi_fisici}
+Sebbene tra le assunzioni fondamentali di questo lavoro si escluda la possibilità che l'attaccante disponga di un accesso fisico incontrollato e permanente alla macchina, è opportuno comprendere brevemente la natura degli attacchi fisici.
+
+A differenza degli attacchi puramente digitali, gli attacchi cyber-fisici puntano a compromettere sistemi software interfacciandosi con la realtà fisica del dispositivo. Un attacco fisico mirato può prevedere la manomissione diretta del circuito stampato, ad esempio per intercettare le linee di comunicazione (\textit{bus sniffing}) che collegano il \acrshort{tpm} alla \acrshort{cpu} al fine di estrarre le chiavi crittografiche scambiate in chiaro (scenario che verrà analizzato in dettaglio nel caso di studio relativo a \textit{BitLocker}). 
+
+In generale, i vettori fisici includono anche la clonazione di token fisici, l'ingegneria sociale e altre tecniche di manipolazione ambientale che mirano a scardinare i presupposti di fiducia su cui poggia l'architettura logica del sistema.

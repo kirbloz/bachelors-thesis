@@ -1,0 +1,107 @@
+
+
+\usepackage[utf8]{inputenc} % Codifica caratteri
+\usepackage[T1]{fontenc}
+\usepackage[includehead, inner=3.0cm, outer=2.0cm, top=2.5cm, bottom=2.5cm]{geometry}
+\usepackage{charter} % Text font
+\usepackage[titles]{tocloft} % TOC compatta
+\usepackage{amssymb} % Checkmark e altri simboli
+\usepackage{graphicx} % Per inserire immagini
+\usepackage{float} % Per controllare il posizionamento di immagini e tabelle
+\usepackage[bottom]{footmisc} % Footer in fondo alla pagina
+\usepackage[section]{placeins} % Force all floats before section end
+
+\usepackage[english,italian]{babel}
+\usepackage{amsmath, caption}
+\usepackage[skip=8pt]{parskip}
+
+\usepackage{listings}
+\renewcommand{\lstlistingname}{Listato}
+\usepackage{xcolor}
+\usepackage{setspace}
+\usepackage{csquotes}
+\usepackage[
+backend=biber,
+style=apa,
+sorting=ynt,
+uniquelist=false]{biblatex}
+\addbibresource{bibliography.bib} % Bibliografia su un file a parte
+%\addbibresource{refs.bib} % File contentente la bibliografia
+
+
+\let\Chapter\chapter\def\chapter{\addtocontents{lol}{\protect\addvspace{10pt}}\Chapter}
+
+% Glossary
+\usepackage[acronym,nonumberlist]{glossaries}
+%\makeglossaries
+
+% Liste
+\usepackage{enumitem} % Per inserire liste
+\usepackage{siunitx} % Per usare \setitemize
+\setitemize{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % itemize più compatto
+\setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % enumerate più compatto
+\setenumerate{noitemsep,topsep=0pt,parsep=0pt,partopsep=0pt} % enumerate più compatto
+\setdescription{topsep=0pt} % enumerate più compatto
+
+% Captions
+\usepackage[font=small,textformat=period]{caption}
+\captionsetup{justification=centering}
+
+% Numerazione enumerate innestati
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+
+% Spaziature
+\linespread{1.5} % Interlinea
+\setlength{\parindent}{6pt} 
+\setlength{\parskip}{1em} % Spazio tra paragrafi
+\setlength{\headheight}{15pt} % Risolve warning con fancyhdr
+
+% Formato capitoli
+\usepackage{titlesec}
+\titleformat{\chapter}[hang]{\normalfont\Huge\bfseries}{\thechapter.}{8pt}{\Huge\bfseries}
+\titleformat*{\section}{\LARGE\bfseries}
+\titleformat*{\subsection}{\Large\bfseries}
+\titleformat*{\subsubsection}{\large\bfseries}
+\titlespacing*{\chapter}{0pt}{-40pt}{15pt}
+\titlespacing*{\section}{0pt}{18pt}{8pt}
+\titlespacing*{\subsection}{0pt}{14pt}{6pt}
+\titlespacing*{\subsubsection}{0pt}{10pt}{4pt}
+
+% Intestazione pagine
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]{\markboth{\thechapter. #1}{#1}}
+\fancyhf{}
+\fancyhead[L]{\small\slshape\nouppercase{\leftmark}}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+
+
+\makeatletter
+\renewcommand\paragraph{%
+  \@startsection{paragraph}
+    {4}
+    {\z@}
+    {3.25ex \@plus1ex \@minus.2ex}
+    {-1em}
+    {\normalfont\normalsize\bfseries\maybe@addperiod}%
+}
+\newcommand{\maybe@addperiod}[1]{%
+  #1\@addpunct{.}%
+}
+\makeatother
+
+\newcommand{\figura}[4]{%
+  \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=#1\textwidth]{#2}
+    \caption{#3}\label{#4}
+  \end{figure}%
+}
+
+
+% URL
+\usepackage[hidelinks]{hyperref} % Per inserire URL
+\usepackage{hyperxmp}
+

@@ -1,0 +1,57 @@
+\chapter*{Appendice}\label{ch:appendix}
+\markboth{Appendice}{Appendice}
+\addcontentsline{toc}{chapter}{Appendice}
+
+\begin{description}[itemsep=2.5ex, parsep=0.5ex, leftmargin=2.5cm, style=nextline]
+
+    \item[\textbf{\acrshort{hsm}}] Con \acrshort{hsm} si intende Hardware Security Module, un dispositivo elaboratore fisico o una rete di dispositivi. Ha il compito di proteggere, gestire e scambiare chiavi digitali oltre che svolgere alcune operazioni crittografiche dedicate (come il calcolo hash per le firme digitali). Sono utilizzati in contesti di applicazioni di alto livello, come la gestione di chiavi per \acrshort{ssl}/\acrshort{tls} in server web, firma certificati in \acrshort{pki}, offload di operazioni crittografiche complesse in data center e generalmente hanno una maggiore capacità di calcolo dei \acrshort{pc} ordinari.
+
+    \item[\textbf{\acrshort{tpm}}] Trusted Processing Module, il soggetto di questo testo. È uno standard internazionale riconosciuto come guida per la realizzazione di speciali microcontrollori dedicati a fornire un ancoraggio hardware sicuro. Il \acrshort{tpm} si interfaccia con il sistema informativo principale (solitamente un Personal Computer) fornendo operazioni che manipolano chiavi crittografiche in modo fidato e indipendente rispetto al software in esecuzione sul sistema.
+
+    \item[\textbf{Secure Enclave}] Si intende la nozione di sistemi ideati per separare e proteggere l’esecuzione di codice e dati sensibili dal “resto del mondo”. Dove il “resto del mondo” è individuato come qualsiasi altro processo in esecuzione sul sistema - che sia eseguito in parallelo o in un altro momento.
+
+    \item[\textbf{\acrshort{tee}}] Per esteso Trusted Execution Environment. Un \acrshort{tee} è un ambiente di esecuzione “fidato” - isolato - che garantisce la confidenzialità e integrità del codice e dati. 
+
+    \item[\textbf{Piattaforma}] La macchina su cui è installato il \acrshort{tpm}.
+
+    \item[\textbf{\acrshort{hmac}}] Un codice di autenticazione di messaggi basato su hash e chiave. Un uso importante degli \acrshort{hmac} nel \acrshort{tpm} è permettere ai processi utente di dimostrare la conoscenza di authdata. 
+
+    \item[\textbf{BLOB}] Un oggetto binario di grandi dimensioni (Binary Large Object, blob) è un dato binario. Sebbene i dati possano avere significato per le applicazioni rilevanti, il termine blob enfatizza il trattamento dei dati come binari non strutturati che devono essere memorizzati o trasportati. Nel contesto del \acrshort{tpm}, i blob sono elementi di dati che l'utente è tenuto a memorizzare per conto del \acrshort{tpm} e a produrre quando necessario.
+
+    \item[\textbf{\acrshort{srk}}] La Storage Root Key è la coppia di chiavi pubblica/privata alla radice della gerarchia delle chiavi di archiviazione del \acrshort{tpm}. 
+
+    \item[\textbf{Authdata}] Password utilizzate per dimostrare di possedere l'autorizzazione ad utilizzare le risorse del \acrshort{tpm}, come le chiavi.
+
+    \item[\textbf{\acrshort{pcr}}] Un Platform Configuration Register (\acrshort{pcr}) è un registro del \acrshort{tpm} che memorizza dati sulla configurazione della piattaforma, utilizzando "misurazioni" di hardware e software durante il processo di avvio. Il \acrshort{tpm} usa i \acrshort{pcr} per fornire garanzie sullo stato della piattaforma.
+
+    \item[\textbf{Seal}] Nel contesto del \acrshort{tpm}, il "sealing" dei dati contro determinati valori di \acrshort{pcr} implica crittografare i dati in modo che il \acrshort{tpm} possa decifrarli se solo se i \acrshort{pcr} hanno i valori originali attesi. Questo può essere utilizzato per garantire l’accesso ai dati solo se la piattaforma si trova nello stato previsto.
+
+    \item[\textbf{Messaggio}] Un array di byte scambiato tra due entità.
+
+    \item[\textbf{Segretezza}] Un metodo per impedire a un osservatore non autorizzato di determinare il contenuto di un messaggio.
+
+    \item[\textbf{Segreto condiviso}] Un valore noto a due parti. Il segreto può essere semplice come una password, oppure può essere una chiave di cifratura.
+
+    \item[\textbf{Integrità}] La proprietà di un messaggio che non è stato alterato durante la memorizzazione o la trasmissione.
+
+    \item[\textbf{Autenticazione}] Un metodo per indicare che un messaggio può essere legato al suo creatore, in modo che il destinatario possa verificar che solo il creatore avrebbe potuto inviare quel messaggio.
+
+    \item[\textbf{Anti-ripetizione}] Un metodo per impedire a un attaccante di riutilizzare un messaggio valido (attacco replay).
+
+    \item[\textbf{Non-ripudio}] Un metodo per impedire al mittente di un messaggio di affermare che non ha inviato il messaggio. È una proprietà molto forte.
+
+    \item[\textbf{Autorizzazione}] Prova che l'utente è autorizzato a eseguire un'operazione o ad accedere a un'entità nel \acrshort{tpm}. 
+
+    \item[\textbf{Sessione}] Come definito nella specifica \acrshort{tpm} 2.0, una "collezione di stato del \acrshort{tpm} che cambia dopo ogni utilizzo.". Le sessioni sono utilizzate per le autorizzazioni e per azioni di comando (crittografia, decrittografia, audit e alcune altre) in una sessione. Nel caso delle sessioni \acrshort{hmac} e di politica, le sessioni vengono create e poi utilizzate per più comandi. Le autorizzazioni tramite password sono un caso speciale di sessioni che non mantengono alcuno stato attraverso più comandi. I diversi tipi e utilizzi delle sessioni sono discussi ampiamente nei capitoli successivi; per ora è sufficiente avere una comprensione di alto livello.
+
+    \item[\textbf{Handle}] Un identificatore che identifica in modo univoco una risorsa del \acrshort{tpm} che occupa la memoria del \acrshort{tpm}.
+
+    \item[\textbf{Flusso di byte}] In un comando, i byte effettivi inviati al \acrshort{tpm}. In una risposta, i byte effettivi ricevuti dal \acrshort{tpm}.
+
+    \item[\textbf{Dati canonicalizzati}] Le strutture C della specifica \acrshort{tpm} sono più grandi dei dati effettivamente trasmessi. Prima della trasmissione sono minimizzati per eliminare byte superflui. Questa ottimizzazione è essenziale dato che il \acrshort{tpm} usa bus lenti come LPC e SPI.
+
+    \item[\textbf{\acrshort{tpme}}] Non è un termine ufficialmente definito nella specifica \acrshort{tcg}. In questo testo viene inteso come TPM Enablement, il meccanismo di abilitazione del \acrshort{tpm} che permette l’inizializzazione del \acrshort{tpm} e quindi la creazione dell’\acrshort{ek}.
+
+    \item[\textbf{Locality}] Un meccanismo di sicurezza del \acrshort{tpm} 2.0 che consente di controllare l’accesso ai comandi e ai registri in base al livello di privilegio del software che li esegue.
+
+\end{description}
